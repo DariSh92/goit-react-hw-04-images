@@ -18,14 +18,15 @@ export const App = () => {
 
 
   useEffect(() => {
-    if (page !== 1) {
+   
+    if (query) {
       API.fetchImage(query, page).then((response) => {
-        const updatedPictures = [...pictures, ...response.hits];
-        setPictures(updatedPictures);
+        setPictures((prevState) => [...prevState, ...response.hits]);
         setIsLoading(false);
+        setTotal(response.total);
       })
     }
-  }, [page]);
+  }, [page, query]);
   
 
   const handleLoadMore = () => {
@@ -33,17 +34,11 @@ export const App = () => {
   };
   
   const handleSubmit = (searchQuery) => {
-    setIsLoading(true);
+    setQuery(searchQuery);
+    setPage(1);
+     
+  };
 
-    API.fetchImage(searchQuery, 1).then((response) => {
-
-      setPictures(response.hits);
-      setQuery(searchQuery);
-      setPage(1);
-      setIsLoading(false);
-      setTotal(response.total);
-    });
-  }
 
   
   return (
