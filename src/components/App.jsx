@@ -13,7 +13,6 @@ export const App = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  // const [error, serError] = useState(null);
   const [query, setQuery] = useState('');
 
 
@@ -31,11 +30,13 @@ export const App = () => {
 
   const handleLoadMore = () => {
     setPage(page + 1);
+    setIsLoading(true);
   };
   
   const handleSubmit = (searchQuery) => {
     setQuery(searchQuery);
     setPage(1);
+    setPictures([]);
      
   };
 
